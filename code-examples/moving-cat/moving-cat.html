@@ -1,0 +1,66 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moving Cat</title>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #f0f4f8;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    #cat {
+      position: absolute;
+      font-size: 80px;
+      left: 0;
+      top: 200px;
+      transition: transform 0.1s linear;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>QA Cat Demo 🐱</h1>
+
+  <div id="cat">🐈</div>
+
+  <script>
+    const cat = document.getElementById("cat");
+
+    let position = 0;
+    let direction = 1;
+
+    function moveCat() {
+      position += 4 * direction;
+
+      if (position > window.innerWidth - 100) {
+        direction = -1;
+        cat.style.transform = "scaleX(-1)";
+      }
+
+      if (position < 0) {
+        direction = 1;
+        cat.style.transform = "scaleX(1)";
+      }
+
+      cat.style.left = position + "px";
+    }
+
+    setInterval(moveCat, 20);
+  </script>
+
+</body>
+</html>
+```
