@@ -1,0 +1,353 @@
+# Cat Cafe Simulator Answer Key
+
+STOP HERE IF YOU HAVE NOT COMPLETED THE CHALLENGE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Answers
+
+## Bug 1
+
+Cat names with only 1 character are accepted.
+
+Expected:
+
+Cat name should be at least 2 characters long.
+
+Actual:
+
+A cat with a 1 character name can be added.
+
+## Bug 2
+
+Age 0 is accepted.
+
+Expected:
+
+Age must be greater than 0.
+
+Actual:
+
+Age 0 is allowed.
+
+## Bug 3
+
+Duplicate cat names are allowed.
+
+Expected:
+
+Duplicate cat names should be blocked.
+
+Actual:
+
+The same cat name can be added multiple times.
+
+## Bug 4
+
+Feeding a cat increases hunger.
+
+Expected:
+
+Feeding should reduce hunger.
+
+Actual:
+
+Hunger increases.
+
+## Bug 5
+
+Food stock can go below 0.
+
+Expected:
+
+Food stock should never go below 0.
+
+Actual:
+
+Food stock can become negative.
+
+## Bug 6
+
+Adopting a cat adds £20 revenue instead of £25.
+
+Expected:
+
+Revenue should increase by £25.
+
+Actual:
+
+Revenue increases by £20.
+
+## Bug 7
+
+Hungry cat count is incorrect.
+
+Expected:
+
+Hungry cats should count cats with hunger greater than 0.
+
+Actual:
+
+The dashboard displays the wrong hungry count.
+
+## Bug 8
+
+Search is case sensitive.
+
+Expected:
+
+Searching should be case insensitive.
+
+Actual:
+
+Searching for a lowercase name may not find uppercase names.
+
+## Bug 9
+
+Sort by age sorts incorrectly.
+
+Expected:
+
+Cats should sort youngest to oldest.
+
+Actual:
+
+Cats sort in the wrong order.
+
+## Bug 10
+
+Breed can be left blank.
+
+Expected:
+
+Breed is required.
+
+Actual:
+
+A cat can be added without breed.
+
+## Easter Eggs
+
+Entering rainbow as the cat name creates a Rainbow Cat.
+
+Entering chatgpt as the cat name creates an Admin Cat.
+
+Entering inna as the cat name creates a VIP Cat.
+
+Adding exactly 5 cats activates Party Mode.
+
+Adding exactly 9 cats unlocks a secret achievement.

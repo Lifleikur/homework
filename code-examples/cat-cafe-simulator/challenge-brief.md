@@ -1,53 +1,59 @@
-# Cat Cafe Management Simulator
+# Cat Cafe Simulator Challenge
 
-Welcome to the QA team.
+You are testing a new Cat Cafe Management System.
 
-You have been asked to test a new Cat Cafe Management System before release.
+The developers believe the app is ready to release.
 
-The development team believes the application is ready.
+Your job is to test it against the requirements and record any bugs you find.
 
-Your task is to verify that it meets the documented requirements and identify any defects.
+## Open The App
 
-## Your Mission
-
-1. Open:
+Open this file using Live Server:
 
 code-examples/cat-cafe-simulator/cat-cafe.html
 
-2. Run it using Live Server
+## Read This First
 
-3. Read the requirements document
+Before testing, read:
 
-4. Test all functionality
+code-examples/cat-cafe-simulator/requirements.md
 
-5. Record any defects found
-
-## Deliverable
+## Create Your Results File
 
 Create:
 
-docs/cat-cafe-simulator/test-results.md
+code-examples/cat-cafe-simulator/test-results.md
 
-For each defect include:
+Use the format from:
 
-Bug Title
+code-examples/cat-cafe-simulator/bug-report-template.md
 
-Severity
+## Do Not Open Yet
 
-Priority
+Do not open the answer key until you finish testing:
 
-Steps to Reproduce
+docs/answers-do-not-open/cat-cafe-answer-key.md
 
-Expected Result
+## What To Test
 
-Actual Result
+Test:
 
-Notes
+- Adding cats
+- Empty cat names
+- Cat ages
+- Duplicate cats
+- Feeding cats
+- Adopting cats
+- Food stock
+- Revenue
+- Hungry cat count
+- Searching
+- Filtering
+- Sorting
+- Multiple actions in a row
 
 ## Goal
 
-Find at least 5 defects.
+Find at least 8 bugs.
 
-Bonus points if you find hidden easter eggs.
-
-Do NOT open answer-key.md until you finish.
+Bonus points if you find hidden surprises.
