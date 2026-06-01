@@ -266,7 +266,7 @@ Breed is required.
 
 Actual:
 
-A cat can be added without breed.
+A cat can be added without selecting a breed.
 
 ## Bug 5
 
@@ -342,11 +342,35 @@ Cats sort oldest to youngest.
 
 ## Bug 11
 
+Special cats can bypass normal breed styling.
+
+Expected:
+
+Special cats should still follow clear styling rules.
+
+Actual:
+
+Rainbow, Admin and VIP cats override breed styling.
+
+## Bug 12
+
+The dropdown includes Unknown, which may let users bypass real breed selection.
+
+Expected:
+
+Unknown should only be used when appropriate or should require confirmation.
+
+Actual:
+
+Unknown can be selected freely.
+
+## Bug 13
+
 Adopted cats are recorded, but there is no timestamp or adopter details.
 
 Expected:
 
-Adoption record could include date/time or adopter name.
+Adoption record could include date, time or adopter name.
 
 Actual:
 

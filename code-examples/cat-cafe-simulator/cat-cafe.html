@@ -6,7 +6,7 @@
   <style>
     body { font-family: Arial, sans-serif; max-width: 950px; margin: 30px auto; padding: 20px; background: #f5f7fa; color: #222; }
     .panel { background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-    input, button { padding: 9px; margin: 5px; }
+    input, select, button { padding: 9px; margin: 5px; }
     button { cursor: pointer; }
     .cat-card { border-left: 5px solid #4caf50; padding: 12px; margin: 10px 0; border-radius: 6px; }
     .adopted-card { background: #eee; border-left: 5px solid #999; padding: 10px; margin: 8px 0; border-radius: 6px; }
@@ -16,224 +16,255 @@
 </head>
 <body>
 
-  <h1>🐱 Cat Cafe Management Simulator</h1>
+<h1>🐱 Cat Cafe Management Simulator</h1>
 
-  <div class="panel">
-    <h2>Dashboard</h2>
-    <p>Total Cats: <span id="totalCats">0</span></p>
-    <p>Hungry Cats: <span id="hungryCats">0</span></p>
-    <p>Food Stock: <span id="foodStock">10</span></p>
-    <p>Daily Revenue: £<span id="revenue">0</span></p>
-    <p>Adopted Cats: <span id="adoptedCount">0</span></p>
-    <p id="achievement" class="success"></p>
-  </div>
+<div class="panel">
+  <h2>Dashboard</h2>
+  <p>Total Cats: <span id="totalCats">0</span></p>
+  <p>Hungry Cats: <span id="hungryCats">0</span></p>
+  <p>Food Stock: <span id="foodStock">10</span></p>
+  <p>Daily Revenue: £<span id="revenue">0</span></p>
+  <p>Adopted Cats: <span id="adoptedCount">0</span></p>
+  <p id="achievement" class="success"></p>
+</div>
 
-  <div class="panel">
-    <h2>Add Cat</h2>
-    <input id="catName" placeholder="Cat name">
-    <input id="catAge" type="number" placeholder="Age">
-    <input id="catBreed" placeholder="Breed">
-    <button onclick="addCat()">Add Cat</button>
-    <p id="message"></p>
-  </div>
+<div class="panel">
+  <h2>Add Cat</h2>
 
-  <div class="panel">
-    <h2>Tools</h2>
-    <input id="searchBox" placeholder="Search by name">
-    <button onclick="searchCats()">Search</button>
-    <button onclick="showAllCats()">Show All</button>
-    <button onclick="filterHungryCats()">Show Hungry Cats</button>
-    <button onclick="sortByAge()">Sort By Age</button>
-  </div>
+  <input id="catName" placeholder="Cat name">
+  <input id="catAge" type="number" placeholder="Age">
 
-  <div class="panel">
-    <h2>Cat List</h2>
-    <div id="catList"></div>
-  </div>
+  <select id="catBreed">
+    <option value="">Select breed</option>
+    <option value="siamese">Siamese</option>
+    <option value="persian">Persian</option>
+    <option value="bengal">Bengal</option>
+    <option value="ragdoll">Ragdoll</option>
+    <option value="sphynx">Sphynx</option>
+    <option value="mainecoon">Maine Coon</option>
+    <option value="tabby">Tabby</option>
+    <option value="unknown">Unknown</option>
+  </select>
 
-  <div class="panel">
-    <h2>Adopted Cats</h2>
-    <div id="adoptedList"></div>
-  </div>
+  <button onclick="addCat()">Add Cat</button>
+  <p id="message"></p>
+</div>
 
-  <script>
-    let cats = [];
-    let adoptedCats = [];
-    let foodStock = 10;
-    let revenue = 0;
-    let adminFeedCount = 0;
+<div class="panel">
+  <h2>Tools</h2>
+  <input id="searchBox" placeholder="Search by name">
+  <button onclick="searchCats()">Search</button>
+  <button onclick="showAllCats()">Show All</button>
+  <button onclick="filterHungryCats()">Show Hungry Cats</button>
+  <button onclick="sortByAge()">Sort By Age</button>
+</div>
 
-    const breedStyles = {
-      siamese: { icon: "🐈", colour: "#d7c0ae" },
-      persian: { icon: "😺", colour: "#f6d6d6" },
-      bengal: { icon: "🐆", colour: "#f4b860" },
-      ragdoll: { icon: "🐱", colour: "#cce5ff" },
-      sphynx: { icon: "🛸", colour: "#e8d5c4" },
-      mainecoon: { icon: "🦁", colour: "#d9b382" },
-      unknown: { icon: "🐾", colour: "#ffffff" }
-    };
+<div class="panel">
+  <h2>Cat List</h2>
+  <div id="catList"></div>
+</div>
 
-    function addCat() {
-      const nameInput = document.getElementById("catName");
-      const ageInput = document.getElementById("catAge");
-      const breedInput = document.getElementById("catBreed");
-      const message = document.getElementById("message");
+<div class="panel">
+  <h2>Adopted Cats</h2>
+  <div id="adoptedList"></div>
+</div>
 
-      let name = nameInput.value.trim();
-      const age = Number(ageInput.value);
-      const breed = breedInput.value.trim();
+<script>
+let cats = [];
+let adoptedCats = [];
+let foodStock = 10;
+let revenue = 0;
+let adminFeedCount = 0;
 
-      message.textContent = "";
-      message.className = "";
+const breedStyles = {
+  siamese: { label: "Siamese", icon: "🐈", colour: "#d7c0ae" },
+  persian: { label: "Persian", icon: "😺", colour: "#f6d6d6" },
+  bengal: { label: "Bengal", icon: "🐆", colour: "#f4b860" },
+  ragdoll: { label: "Ragdoll", icon: "🐱", colour: "#cce5ff" },
+  sphynx: { label: "Sphynx", icon: "👽", colour: "#e8d5c4" },
+  mainecoon: { label: "Maine Coon", icon: "🦁", colour: "#d9b382" },
+  tabby: { label: "Tabby", icon: "🐅", colour: "#f2d16b" },
+  unknown: { label: "Unknown", icon: "🐾", colour: "#ffffff" }
+};
 
-      if (name === "") {
-        message.textContent = "Cat name is required";
-        message.className = "warning";
-        return;
-      }
+const moods = ["😸", "😺", "😹", "😼", "🙀"];
 
-      if (age < 0) {
-        message.textContent = "Age must be greater than 0";
-        message.className = "warning";
-        return;
-      }
+function addCat() {
+  const nameInput = document.getElementById("catName");
+  const ageInput = document.getElementById("catAge");
+  const breedInput = document.getElementById("catBreed");
+  const message = document.getElementById("message");
 
-      let displayName = name;
+  let name = nameInput.value.trim();
+  const age = Number(ageInput.value);
+  const breedKey = breedInput.value;
 
-      if (name.toLowerCase() === "rainbow") displayName = "🌈 Rainbow Cat";
-      if (name.toLowerCase() === "chatgpt") displayName = "👑 Admin Cat";
-      if (name.toLowerCase() === "inna") displayName = "⭐ VIP Cat";
+  message.textContent = "";
+  message.className = "";
 
-      const breedKey = breed.toLowerCase().replace(/\s/g, "");
-      const breedStyle = breedStyles[breedKey] || breedStyles.unknown;
+  if (name === "") {
+    message.textContent = "Cat name is required";
+    message.className = "warning";
+    return;
+  }
 
-      const cat = {
-        name: displayName,
-        originalName: name,
-        age: age,
-        breed: breed,
-        icon: breedStyle.icon,
-        colour: breedStyle.colour,
-        hunger: 5
-      };
+  if (age < 0) {
+    message.textContent = "Age must be greater than 0";
+    message.className = "warning";
+    return;
+  }
 
-      cats.push(cat);
+  let breedStyle = { ...breedStyles[breedKey] };
+  let displayName = name;
 
-      nameInput.value = "";
-      ageInput.value = "";
-      breedInput.value = "";
+  if (name.toLowerCase() === "rainbow") {
+    displayName = "🌈 Rainbow Cat";
+    breedStyle.icon = "🌈🐱";
+    breedStyle.colour = "#ffb3ff";
+  }
 
-      message.textContent = "Cat added successfully";
-      message.className = "success";
+  if (name.toLowerCase() === "chatgpt") {
+    displayName = "👑 Admin Cat";
+    breedStyle.icon = "👑🐱";
+    breedStyle.colour = "#d6f5d6";
+  }
 
-      renderCats(cats);
-      updateDashboard();
+  if (name.toLowerCase() === "inna") {
+    displayName = "⭐ VIP Cat";
+    breedStyle.icon = "⭐🐱";
+    breedStyle.colour = "#fff3b0";
+  }
 
-      if (cats.length === 5) {
-        document.body.style.background = "#ffe4f2";
-        alert("🎉 Party Mode Activated!");
-      }
+  const mood = moods[Math.floor(Math.random() * moods.length)];
 
-      if (cats.length === 9) {
-        document.getElementById("achievement").textContent = "🏆 Secret achievement unlocked: Cat Cafe Legend!";
-      }
-    }
+  const cat = {
+    name: displayName,
+    originalName: name,
+    age: age,
+    breed: breedStyle.label,
+    icon: breedStyle.icon,
+    colour: breedStyle.colour,
+    mood: mood,
+    hunger: 5
+  };
 
-    function renderCats(catArray) {
-      const catList = document.getElementById("catList");
-      catList.innerHTML = "";
+  cats.push(cat);
 
-      catArray.forEach((cat, index) => {
-        const div = document.createElement("div");
-        div.className = "cat-card";
-        div.style.background = cat.colour;
+  nameInput.value = "";
+  ageInput.value = "";
+  breedInput.value = "";
 
-        div.innerHTML = `
-          <strong>${cat.icon} ${cat.name}</strong><br>
-          Age: ${cat.age}<br>
-          Breed: ${cat.breed}<br>
-          Hunger: ${cat.hunger}<br>
-          Health Score: ${calculateHealthScore(cat)}<br><br>
-          <button onclick="feedCat(${index})">Feed</button>
-          <button onclick="adoptCat(${index})">Adopt</button>
-        `;
+  message.textContent = "Cat added successfully";
+  message.className = "success";
 
-        catList.appendChild(div);
-      });
-    }
+  renderCats(cats);
+  updateDashboard();
 
-    function renderAdoptedCats() {
-      const adoptedList = document.getElementById("adoptedList");
-      adoptedList.innerHTML = "";
+  if (cats.length === 5) {
+    document.body.style.background = "#ffe4f2";
+    alert("🎉 Party Mode Activated!");
+  }
 
-      adoptedCats.forEach(cat => {
-        const div = document.createElement("div");
-        div.className = "adopted-card";
-        div.innerHTML = `<strong>${cat.icon} ${cat.name}</strong><br>Breed: ${cat.breed}<br>Status: Adopted`;
-        adoptedList.appendChild(div);
-      });
-    }
+  if (cats.length === 9) {
+    document.getElementById("achievement").textContent = "🏆 Secret achievement unlocked: Cat Cafe Legend!";
+  }
+}
 
-    function feedCat(index) {
-      if (foodStock <= 0) {
-        alert("No food left");
-      }
+function renderCats(catArray) {
+  const catList = document.getElementById("catList");
+  catList.innerHTML = "";
 
-      cats[index].hunger = cats[index].hunger + 1;
-      foodStock = foodStock - 1;
+  catArray.forEach((cat, index) => {
+    const div = document.createElement("div");
+    div.className = "cat-card";
+    div.style.background = cat.colour;
 
-      if (cats[index].name.includes("Admin")) adminFeedCount++;
+    div.innerHTML = `
+      <strong>${cat.icon} ${cat.name} ${cat.mood}</strong><br>
+      Age: ${cat.age}<br>
+      Breed: ${cat.breed}<br>
+      Hunger: ${cat.hunger}<br>
+      Health Score: ${calculateHealthScore(cat)}<br><br>
+      <button onclick="feedCat(${index})">Feed</button>
+      <button onclick="adoptCat(${index})">Adopt</button>
+    `;
 
-      if (adminFeedCount === 10) {
-        alert("👑 Admin Cat says: excellent testing!");
-      }
+    catList.appendChild(div);
+  });
+}
 
-      renderCats(cats);
-      updateDashboard();
-    }
+function renderAdoptedCats() {
+  const adoptedList = document.getElementById("adoptedList");
+  adoptedList.innerHTML = "";
 
-    function adoptCat(index) {
-      const adoptedCat = cats.splice(index, 1)[0];
-      adoptedCats.push(adoptedCat);
-      revenue = revenue + 20;
+  adoptedCats.forEach(cat => {
+    const div = document.createElement("div");
+    div.className = "adopted-card";
+    div.innerHTML = `<strong>${cat.icon} ${cat.name} ${cat.mood}</strong><br>Breed: ${cat.breed}<br>Status: Adopted`;
+    adoptedList.appendChild(div);
+  });
+}
 
-      renderCats(cats);
-      renderAdoptedCats();
-      updateDashboard();
-    }
+function feedCat(index) {
+  if (foodStock <= 0) {
+    alert("No food left");
+  }
 
-    function updateDashboard() {
-      document.getElementById("totalCats").textContent = cats.length;
-      document.getElementById("hungryCats").textContent = cats.filter(cat => cat.hunger > 2).length + 1;
-      document.getElementById("foodStock").textContent = foodStock;
-      document.getElementById("revenue").textContent = revenue;
-      document.getElementById("adoptedCount").textContent = adoptedCats.length;
-    }
+  cats[index].hunger = cats[index].hunger + 1;
+  foodStock = foodStock - 1;
 
-    function searchCats() {
-      const searchTerm = document.getElementById("searchBox").value;
-      renderCats(cats.filter(cat => cat.name.includes(searchTerm)));
-    }
+  if (cats[index].name.includes("Admin")) adminFeedCount++;
 
-    function showAllCats() {
-      renderCats(cats);
-    }
+  if (adminFeedCount === 10) {
+    alert("👑 Admin Cat says: excellent testing!");
+  }
 
-    function filterHungryCats() {
-      renderCats(cats.filter(cat => cat.hunger > 0));
-    }
+  renderCats(cats);
+  updateDashboard();
+}
 
-    function sortByAge() {
-      cats.sort((a, b) => b.age - a.age);
-      renderCats(cats);
-    }
+function adoptCat(index) {
+  const adoptedCat = cats.splice(index, 1)[0];
+  adoptedCats.push(adoptedCat);
+  revenue = revenue + 20;
 
-    function calculateHealthScore(cat) {
-      return 100 - cat.hunger * 3 + cat.age;
-    }
+  renderCats(cats);
+  renderAdoptedCats();
+  updateDashboard();
+}
 
-    updateDashboard();
-  </script>
+function updateDashboard() {
+  document.getElementById("totalCats").textContent = cats.length;
+  document.getElementById("hungryCats").textContent = cats.filter(cat => cat.hunger > 2).length + 1;
+  document.getElementById("foodStock").textContent = foodStock;
+  document.getElementById("revenue").textContent = revenue;
+  document.getElementById("adoptedCount").textContent = adoptedCats.length;
+}
+
+function searchCats() {
+  const searchTerm = document.getElementById("searchBox").value;
+  renderCats(cats.filter(cat => cat.name.includes(searchTerm)));
+}
+
+function showAllCats() {
+  renderCats(cats);
+}
+
+function filterHungryCats() {
+  renderCats(cats.filter(cat => cat.hunger > 0));
+}
+
+function sortByAge() {
+  cats.sort((a, b) => b.age - a.age);
+  renderCats(cats);
+}
+
+function calculateHealthScore(cat) {
+  return 100 - cat.hunger * 3 + cat.age;
+}
+
+updateDashboard();
+</script>
 
 </body>
 </html>

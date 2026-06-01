@@ -17,11 +17,11 @@ A user should be able to add a cat with:
 - Breed is required
 - Duplicate cat names are not allowed
 
-## Breed Icons And Colours
+## Breed Dropdown
 
-Cats should display an icon and background colour based on breed.
+Breed should be selected from a dropdown list.
 
-Supported breeds:
+The dropdown should include:
 
 - Siamese
 - Persian
@@ -29,10 +29,29 @@ Supported breeds:
 - Ragdoll
 - Sphynx
 - Maine Coon
+- Tabby
+- Unknown
 
-Unknown breeds should use a default paw icon and white background.
+## Breed Icons And Colours
 
-Breed matching should work even if the user uses capital letters or spaces.
+Cats should display an icon and background colour based on breed.
+
+Expected breed styling:
+
+- Siamese should show a cat icon and beige background
+- Persian should show a smiling cat icon and pink background
+- Bengal should show a leopard-style icon and orange background
+- Ragdoll should show a cat face icon and blue background
+- Sphynx should show a unique icon and beige background
+- Maine Coon should show a lion-style icon and brown background
+- Tabby should show a tiger-style icon and yellow background
+- Unknown should show a paw icon and white background
+
+## Cat Mood
+
+Each cat should display a mood emoji.
+
+The mood should appear beside the cat name.
 
 ## Feed Cat
 

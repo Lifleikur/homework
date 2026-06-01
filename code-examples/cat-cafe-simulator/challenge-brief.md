@@ -41,9 +41,14 @@ Test:
 - Adding cats
 - Empty cat names
 - Cat ages
+- Breed dropdown
+- Breed icons
+- Breed colours
+- Cat mood emoji
 - Duplicate cats
 - Feeding cats
 - Adopting cats
+- Adopted cats list
 - Food stock
 - Revenue
 - Hungry cat count
