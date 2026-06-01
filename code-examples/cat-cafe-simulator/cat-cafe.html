@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cat Cafe Simulator</title>
+
+<style>
+body{
+  font-family:Arial,sans-serif;
+  max-width:900px;
+  margin:40px auto;
+  background:#f5f7fa;
+  padding:20px;
+}
+
+input{
+  padding:8px;
+  margin:5px;
+}
+
+button{
+  padding:8px 12px;
+  margin:5px;
+}
+
+.cat{
+  background:white;
+  border-left:4px solid #4caf50;
+  margin-top:10px;
+  padding:10px;
+}
+
+.stats{
+  background:#fff;
+  padding:15px;
+  margin-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🐱 Cat Cafe Simulator</h1>
+
+<div class="stats">
+  <p>Total Cats: <span id="totalCats">0</span></p>
+  <p>Hungry Cats: <span id="hungryCats">0</span></p>
+</div>
+
+<input id="catName" placeholder="Cat Name">
+<input id="catAge" type="number" placeholder="Age">
+
+<button onclick="addCat()">Add Cat</button>
+
+<div id="cats"></div>
+
+<script>
+
+let cats = [];
+
+function updateStats(){
+  document.getElementById("totalCats").textContent = cats.length;
+
+  const hungry = cats.filter(c => c.hunger > 0).length;
+  document.getElementById("hungryCats").textContent = hungry + 1; // Bug
+}
+
+function addCat(){
+
+  const name = document.getElementById("catName").value.trim();
+  const age = Number(document.getElementById("catAge").value);
+
+  if(name === ""){
+    alert("Name required");
+    return;
+  }
+
+  // Bug: age 0 allowed
+  if(age < 0){
+    alert("Age must be greater than 0");
+    return;
+  }
+
+  let displayName = name;
+
+  if(name.toLowerCase() === "rainbow"){
+    displayName = "🌈 Rainbow Cat";
+  }
+
+  if(name.toLowerCase() === "chatgpt"){
+    displayName = "👑 Admin Cat";
+  }
+
+  const cat = {
+    name: displayName,
+    age: age,
+    hunger: 5
+  };
+
+  // Bug: duplicates allowed
+  cats.push(cat);
+
+  renderCats();
+  updateStats();
+
+  if(cats.length === 5){
+    document.body.style.background = "pink";
+    alert("🎉 Cat Party Mode Activated!");
+  }
+}
+
+function renderCats(){
+
+  const container = document.getElementById("cats");
+  container.innerHTML = "";
+
+  cats.forEach((cat,index)=>{
+
+    const div = document.createElement("div");
+    div.className = "cat";
+
+    div.innerHTML = `
+      <strong>${cat.name}</strong><br>
+      Age: ${cat.age}<br>
+      Hunger: ${cat.hunger}<br><br>
+
+      <button onclick="feedCat(${index})">Feed</button>
+      <button onclick="adoptCat(${index})">Adopt</button>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+function feedCat(index){
+
+  // Bug: feeding increases hunger
+  cats[index].hunger++;
+
+  renderCats();
+  updateStats();
+}
+
+function adoptCat(index){
+
+  cats.splice(index,1);
+
+  // Bug: total count not refreshed
+  renderCats();
+}
+
+</script>
+
+</body>
+</html>
