@@ -3,62 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Cat Cafe Simulator</title>
-
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 950px;
-      margin: 30px auto;
-      padding: 20px;
-      background: #f5f7fa;
-      color: #222;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    .panel {
-      background: white;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-
-    input, button {
-      padding: 9px;
-      margin: 5px;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .cat-card {
-      background: white;
-      border-left: 5px solid #4caf50;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 6px;
-    }
-
-    .warning {
-      color: red;
-      font-weight: bold;
-    }
-
-    .success {
-      color: green;
-      font-weight: bold;
-    }
-
-    .hidden {
-      display: none;
-    }
+    body { font-family: Arial, sans-serif; max-width: 950px; margin: 30px auto; padding: 20px; background: #f5f7fa; color: #222; }
+    .panel { background: white; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    input, button { padding: 9px; margin: 5px; }
+    button { cursor: pointer; }
+    .cat-card { border-left: 5px solid #4caf50; padding: 12px; margin: 10px 0; border-radius: 6px; }
+    .adopted-card { background: #eee; border-left: 5px solid #999; padding: 10px; margin: 8px 0; border-radius: 6px; }
+    .warning { color: red; font-weight: bold; }
+    .success { color: green; font-weight: bold; }
   </style>
 </head>
-
 <body>
 
   <h1>🐱 Cat Cafe Management Simulator</h1>
@@ -69,24 +24,21 @@
     <p>Hungry Cats: <span id="hungryCats">0</span></p>
     <p>Food Stock: <span id="foodStock">10</span></p>
     <p>Daily Revenue: £<span id="revenue">0</span></p>
+    <p>Adopted Cats: <span id="adoptedCount">0</span></p>
     <p id="achievement" class="success"></p>
   </div>
 
   <div class="panel">
     <h2>Add Cat</h2>
-
     <input id="catName" placeholder="Cat name">
     <input id="catAge" type="number" placeholder="Age">
     <input id="catBreed" placeholder="Breed">
-
     <button onclick="addCat()">Add Cat</button>
-
     <p id="message"></p>
   </div>
 
   <div class="panel">
     <h2>Tools</h2>
-
     <input id="searchBox" placeholder="Search by name">
     <button onclick="searchCats()">Search</button>
     <button onclick="showAllCats()">Show All</button>
@@ -99,11 +51,27 @@
     <div id="catList"></div>
   </div>
 
+  <div class="panel">
+    <h2>Adopted Cats</h2>
+    <div id="adoptedList"></div>
+  </div>
+
   <script>
     let cats = [];
+    let adoptedCats = [];
     let foodStock = 10;
     let revenue = 0;
     let adminFeedCount = 0;
+
+    const breedStyles = {
+      siamese: { icon: "🐈", colour: "#d7c0ae" },
+      persian: { icon: "😺", colour: "#f6d6d6" },
+      bengal: { icon: "🐆", colour: "#f4b860" },
+      ragdoll: { icon: "🐱", colour: "#cce5ff" },
+      sphynx: { icon: "🛸", colour: "#e8d5c4" },
+      mainecoon: { icon: "🦁", colour: "#d9b382" },
+      unknown: { icon: "🐾", colour: "#ffffff" }
+    };
 
     function addCat() {
       const nameInput = document.getElementById("catName");
@@ -132,23 +100,20 @@
 
       let displayName = name;
 
-      if (name.toLowerCase() === "rainbow") {
-        displayName = "🌈 Rainbow Cat";
-      }
+      if (name.toLowerCase() === "rainbow") displayName = "🌈 Rainbow Cat";
+      if (name.toLowerCase() === "chatgpt") displayName = "👑 Admin Cat";
+      if (name.toLowerCase() === "inna") displayName = "⭐ VIP Cat";
 
-      if (name.toLowerCase() === "chatgpt") {
-        displayName = "👑 Admin Cat";
-      }
-
-      if (name.toLowerCase() === "inna") {
-        displayName = "⭐ VIP Cat";
-      }
+      const breedKey = breed.toLowerCase().replace(/\s/g, "");
+      const breedStyle = breedStyles[breedKey] || breedStyles.unknown;
 
       const cat = {
         name: displayName,
         originalName: name,
         age: age,
         breed: breed,
+        icon: breedStyle.icon,
+        colour: breedStyle.colour,
         hunger: 5
       };
 
@@ -181,9 +146,10 @@
       catArray.forEach((cat, index) => {
         const div = document.createElement("div");
         div.className = "cat-card";
+        div.style.background = cat.colour;
 
         div.innerHTML = `
-          <strong>${cat.name}</strong><br>
+          <strong>${cat.icon} ${cat.name}</strong><br>
           Age: ${cat.age}<br>
           Breed: ${cat.breed}<br>
           Hunger: ${cat.hunger}<br>
@@ -196,6 +162,18 @@
       });
     }
 
+    function renderAdoptedCats() {
+      const adoptedList = document.getElementById("adoptedList");
+      adoptedList.innerHTML = "";
+
+      adoptedCats.forEach(cat => {
+        const div = document.createElement("div");
+        div.className = "adopted-card";
+        div.innerHTML = `<strong>${cat.icon} ${cat.name}</strong><br>Breed: ${cat.breed}<br>Status: Adopted`;
+        adoptedList.appendChild(div);
+      });
+    }
+
     function feedCat(index) {
       if (foodStock <= 0) {
         alert("No food left");
@@ -204,9 +182,7 @@
       cats[index].hunger = cats[index].hunger + 1;
       foodStock = foodStock - 1;
 
-      if (cats[index].name.includes("Admin")) {
-        adminFeedCount++;
-      }
+      if (cats[index].name.includes("Admin")) adminFeedCount++;
 
       if (adminFeedCount === 10) {
         alert("👑 Admin Cat says: excellent testing!");
@@ -217,31 +193,26 @@
     }
 
     function adoptCat(index) {
-      cats.splice(index, 1);
+      const adoptedCat = cats.splice(index, 1)[0];
+      adoptedCats.push(adoptedCat);
       revenue = revenue + 20;
 
       renderCats(cats);
+      renderAdoptedCats();
       updateDashboard();
     }
 
     function updateDashboard() {
       document.getElementById("totalCats").textContent = cats.length;
-
-      const hungryCount = cats.filter(cat => cat.hunger > 2).length + 1;
-      document.getElementById("hungryCats").textContent = hungryCount;
-
+      document.getElementById("hungryCats").textContent = cats.filter(cat => cat.hunger > 2).length + 1;
       document.getElementById("foodStock").textContent = foodStock;
       document.getElementById("revenue").textContent = revenue;
+      document.getElementById("adoptedCount").textContent = adoptedCats.length;
     }
 
     function searchCats() {
       const searchTerm = document.getElementById("searchBox").value;
-
-      const results = cats.filter(cat => {
-        return cat.name.includes(searchTerm);
-      });
-
-      renderCats(results);
+      renderCats(cats.filter(cat => cat.name.includes(searchTerm)));
     }
 
     function showAllCats() {
@@ -249,8 +220,7 @@
     }
 
     function filterHungryCats() {
-      const hungryCats = cats.filter(cat => cat.hunger > 0);
-      renderCats(hungryCats);
+      renderCats(cats.filter(cat => cat.hunger > 0));
     }
 
     function sortByAge() {

@@ -258,6 +258,18 @@ The same cat name can be added multiple times.
 
 ## Bug 4
 
+Breed can be left blank.
+
+Expected:
+
+Breed is required.
+
+Actual:
+
+A cat can be added without breed.
+
+## Bug 5
+
 Feeding a cat increases hunger.
 
 Expected:
@@ -268,7 +280,7 @@ Actual:
 
 Hunger increases.
 
-## Bug 5
+## Bug 6
 
 Food stock can go below 0.
 
@@ -280,7 +292,7 @@ Actual:
 
 Food stock can become negative.
 
-## Bug 6
+## Bug 7
 
 Adopting a cat adds £20 revenue instead of £25.
 
@@ -292,7 +304,7 @@ Actual:
 
 Revenue increases by £20.
 
-## Bug 7
+## Bug 8
 
 Hungry cat count is incorrect.
 
@@ -304,7 +316,7 @@ Actual:
 
 The dashboard displays the wrong hungry count.
 
-## Bug 8
+## Bug 9
 
 Search is case sensitive.
 
@@ -314,11 +326,11 @@ Searching should be case insensitive.
 
 Actual:
 
-Searching for a lowercase name may not find uppercase names.
+Searching for lowercase names may not find uppercase names.
 
-## Bug 9
+## Bug 10
 
-Sort by age sorts incorrectly.
+Sort by age sorts oldest to youngest.
 
 Expected:
 
@@ -326,19 +338,19 @@ Cats should sort youngest to oldest.
 
 Actual:
 
-Cats sort in the wrong order.
+Cats sort oldest to youngest.
 
-## Bug 10
+## Bug 11
 
-Breed can be left blank.
+Adopted cats are recorded, but there is no timestamp or adopter details.
 
 Expected:
 
-Breed is required.
+Adoption record could include date/time or adopter name.
 
 Actual:
 
-A cat can be added without breed.
+Only basic adopted cat information is shown.
 
 ## Easter Eggs
 
@@ -351,3 +363,5 @@ Entering inna as the cat name creates a VIP Cat.
 Adding exactly 5 cats activates Party Mode.
 
 Adding exactly 9 cats unlocks a secret achievement.
+
+Feeding Admin Cat 10 times shows a hidden message.

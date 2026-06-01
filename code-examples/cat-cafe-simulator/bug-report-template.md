@@ -1,4 +1,4 @@
-bug-report-template.md# Bug Report Template
+# Bug Report Template
 
 ## Bug Title
 

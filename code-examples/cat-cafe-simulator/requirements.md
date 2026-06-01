@@ -17,9 +17,24 @@ A user should be able to add a cat with:
 - Breed is required
 - Duplicate cat names are not allowed
 
-## Feed Cat
+## Breed Icons And Colours
 
-A user should be able to feed a cat.
+Cats should display an icon and background colour based on breed.
+
+Supported breeds:
+
+- Siamese
+- Persian
+- Bengal
+- Ragdoll
+- Sphynx
+- Maine Coon
+
+Unknown breeds should use a default paw icon and white background.
+
+Breed matching should work even if the user uses capital letters or spaces.
+
+## Feed Cat
 
 When a cat is fed:
 
@@ -30,12 +45,12 @@ When a cat is fed:
 
 ## Adopt Cat
 
-A user should be able to adopt a cat.
-
 When adopted:
 
-- The cat should be removed from the list
+- The cat should be removed from the active Cat List
+- The cat should appear in the Adopted Cats list
 - Total cats should decrease
+- Adopted cats count should increase
 - Revenue should increase by £25
 
 ## Statistics
@@ -46,10 +61,9 @@ The dashboard should show:
 - Hungry cats
 - Food stock
 - Daily revenue
+- Adopted cats
 
 ## Search
-
-A user should be able to search cats by name.
 
 Search should:
 
@@ -58,13 +72,11 @@ Search should:
 
 ## Filter
 
-A user should be able to show only hungry cats.
-
 Hungry cats are cats with hunger greater than 0.
 
 ## Sort
 
-A user should be able to sort cats by age from youngest to oldest.
+Cats should sort by age from youngest to oldest.
 
 ## General
 
