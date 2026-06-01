@@ -1,19 +1,6 @@
 # QA Bug Hunt Answer Key
 
-Stop here if you have not completed the exercise.
-
-
-
-
-
-
-
-
-
-
-
-
-
+STOP HERE IF YOU HAVE NOT COMPLETED THE EXERCISE.
 
 
 
@@ -236,8 +223,6 @@ Actual:
 
 Account is created.
 
----
-
 ## Bug 2
 
 Emails without a dot after the @ symbol are accepted.
@@ -253,8 +238,6 @@ Email should be rejected.
 Actual:
 
 Account is created.
-
----
 
 ## Bug 3
 
@@ -272,40 +255,33 @@ Actual:
 
 Account is created.
 
----
-
 ## Bug 4
 
-The same account can be created multiple times.
+Duplicate email addresses are allowed.
 
 Expected:
 
-Duplicate email addresses should probably be blocked.
+Duplicate accounts should be blocked.
 
 Actual:
 
-Duplicate accounts are added to the Created Accounts list.
-
----
+The same email can be added more than once.
 
 ## Bug 5
 
-Password is shown in the Created Accounts list.
+Password is displayed in the Created Accounts list.
 
 Expected:
 
-Password should not be displayed.
+Password should not be shown.
 
 Actual:
 
 Password appears on screen.
 
----
-
 ## Bonus Observations
 
-- Email validation is still basic
-- There is no password strength guidance
-- Required fields are not marked with *
-- No confirmation screen exists
+- Email validation is weak
+- Password rules are not displayed clearly
+- Required fields are not marked
 - No accessibility labels are included
