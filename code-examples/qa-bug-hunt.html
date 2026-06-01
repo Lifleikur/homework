@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QA Bug Hunt Challenge</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f7fa;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .account {
+      background: white;
+      padding: 10px;
+      margin-top: 10px;
+      border-left: 4px solid #4caf50;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>QA Bug Hunt Account Form</h1>
+
+  <label>Name</label>
+  <input id="name" placeholder="Enter your name">
+
+  <label>Email</label>
+  <input id="email" placeholder="Enter your email">
+
+  <label>Password</label>
+  <input id="password" type="password" placeholder="Enter your password">
+
+  <button onclick="createAccount()">Create Account</button>
+  <button onclick="resetForm()">Reset</button>
+
+  <div id="message"></div>
+
+  <h2>Created Accounts</h2>
+  <div id="accounts"></div>
+
+  <script>
+    function createAccount() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("message");
+      const accounts = document.getElementById("accounts");
+
+      message.textContent = "";
+      message.style.color = "";
+
+      if (name === "") {
+        message.textContent = "Name is required";
+        message.style.color = "red";
+        return;
+      }
+
+      if (email === "") {
+        message.textContent = "Email is required";
+        message.style.color = "red";
+        return;
+      }
+
+      if (!email.includes("@")) {
+        message.textContent = "Email must contain @";
+        message.style.color = "red";
+        return;
+      }
+
+      if (password === "") {
+        message.textContent = "Password is required";
+        message.style.color = "red";
+        return;
+      }
+
+      const account = document.createElement("div");
+      account.className = "account";
+      account.innerHTML = `
+        <strong>Name:</strong> ${name}<br>
+        <strong>Email:</strong> ${email}<br>
+        <strong>Password:</strong> ${password}
+      `;
+
+      accounts.appendChild(account);
+
+      message.textContent = "Account created successfully";
+      message.style.color = "green";
+    }
+
+    function resetForm() {
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("message").textContent = "";
+    }
+  </script>
+
+</body>
+</html>
