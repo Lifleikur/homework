@@ -93,6 +93,6 @@ Notes:
 
 Do not open:
 
-docs/qa-bug-hunt-answer-key.md
+docs/answers-do-not-open/qa-bug-hunt-answer-key.md
 
 until you finish testing.
